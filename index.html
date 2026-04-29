@@ -68,7 +68,6 @@
 
         .cta-secondary { background: transparent; border: 2px solid var(--accent); }
 
-        /* MODAIS GERAIS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); display: none;
@@ -81,10 +80,9 @@
             position: relative; max-height: 90vh; overflow-y: auto;
         }
 
-        /* MODAL DE PRODUTO (BRANCO) */
         .modal-product {
-            background: #FFFFFF !important; /* Fundo branco conforme solicitado */
-            color: #333 !important; /* Texto escuro para ler no branco */
+            background: #FFFFFF !important;
+            color: #333 !important;
             border: none !important;
         }
 
@@ -98,33 +96,15 @@
         }
         .product-card:hover { border-color: var(--accent); transform: translateY(-5px); }
 
-        /* ESTILO INTERNO DO PRODUTO */
         .product-detail { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; justify-content: center; }
-        
         .product-image { flex: 1; min-width: 280px; max-width: 350px; text-align: center; }
-        
-        .product-image img { 
-            width: 100%; 
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            /* Fundo branco mantido como está na sua foto original */
-        }
+        .product-image img { width: 100%; height: auto; max-height: 400px; object-fit: contain; }
 
         .product-info { flex: 1.5; min-width: 280px; text-align: left; }
         .product-info h2 { font-family: 'Bebas Neue'; font-size: 45px; color: var(--accent); margin-bottom: 10px; }
         .product-info p { line-height: 1.6; margin-bottom: 20px; font-size: 16px; color: #444; }
         
-        .back-btn { 
-            background: var(--accent); 
-            color: white; 
-            padding: 12px 24px; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-weight: 700;
-            transition: 0.3s; 
-        }
+        .back-btn { background: var(--accent); color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 700; transition: 0.3s; }
         .back-btn:hover { background: var(--dark); }
 
         @media (max-width: 768px) {
@@ -146,7 +126,7 @@
     <div class="main-content">
         <p class="tagline">Equilíbrio entre sal e brasa</p>
         <h1 class="brand-title">BRASA <span>&</span> SABOR</h1>
-        <p class="description">Soluções práticas e padronizadas que valorizam o sabor natural através de insumos premium para o assador moderno.</p>
+        <p class="description">Soluções práticas e padronizadas que valorizam o sabor natural através de insumos premium.</p>
         <div class="cta-section">
             <button class="cta-button" onclick="openModal('portfolioModal')">CONHECER PRODUTOS</button>
             <button class="cta-button cta-secondary" onclick="openModal('infoModal')">NOSSA HISTÓRIA</button>
@@ -183,11 +163,11 @@
         <span class="close-button" onclick="closeModal('prodSal')">&times;</span>
         <div class="product-detail">
             <div class="product-image">
-                <img src="img/imgsalparrilla.jpg" alt="Sal Parrilla">
+                <img src="imgsalparrilla.jpg" alt="Sal Parrilla">
             </div>
             <div class="product-info">
                 <h2>Sal Parrilla</h2>
-                <p>O equilíbrio perfeito para o seu churrasco. Granulometria entrefina que garante a salga uniforme sem retirar o suco da carne. Indispensável para cortes nobres.</p>
+                <p>O equilíbrio perfeito para o seu churrasco. Granulometria entrefina que garante a salga uniforme sem retirar o suco da carne.</p>
                 <button class="back-btn" onclick="goToPortfolio('prodSal')">VOLTAR AO PORTFÓLIO</button>
             </div>
         </div>
@@ -199,11 +179,11 @@
         <span class="close-button" onclick="closeModal('prodRub')">&times;</span>
         <div class="product-detail">
             <div class="product-image">
-                <img src="img/imghub.jpg" alt="Dry Rub">
+                <img src="imghub.jpg" alt="Dry Rub">
             </div>
             <div class="product-info">
                 <h2>Dry Rubs</h2>
-                <p>Mistura de especiarias selecionadas para criar aquela crosta de sabor irresistível. Ideal para carnes de preparo lento, garantindo um toque defumado e caramelizado.</p>
+                <p>Mistura de especiarias selecionadas para criar aquela crosta de sabor irresistível. Ideal para carnes de preparo lento.</p>
                 <button class="back-btn" onclick="goToPortfolio('prodRub')">VOLTAR AO PORTFÓLIO</button>
             </div>
         </div>
@@ -215,11 +195,11 @@
         <span class="close-button" onclick="closeModal('prodBlend')">&times;</span>
         <div class="product-detail">
             <div class="product-image">
-                <img src="img/imgsalbatata.jpg" alt="Blend Batata">
+                <img src="imgsalbatata.jpg" alt="Blend Batata">
             </div>
             <div class="product-info">
                 <h2>Blends Especiais</h2>
-                <p>Inovação em cada detalhe. Nosso blend para batatas traz o sabor das grandes steakshouses para a sua mesa, com um tempero marcante e exclusivo da linha Brasa & Sabor.</p>
+                <p>Inovação em cada detalhe. Nosso blend para batatas traz o sabor das grandes steakshouses para a sua mesa.</p>
                 <button class="back-btn" onclick="goToPortfolio('prodBlend')">VOLTAR AO PORTFÓLIO</button>
             </div>
         </div>
@@ -230,30 +210,18 @@
     <div class="modal-content">
         <span class="close-button" onclick="closeModal('infoModal')">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent);">Nossa Essência</h2>
-        <p style="margin-top:20px; line-height: 1.8; color: #ccc;">A Vale Verde nasceu para o assador que não aceita menos que a perfeição. Unimos a tradição do fogo com a praticidade moderna, entregando o mesmo sabor excepcional em cada embalagem.</p>
+        <p style="margin-top:20px; line-height: 1.8; color: #ccc;">A Vale Verde une a tradição do fogo com a praticidade moderna.</p>
     </div>
 </div>
 
 <script>
     function openModal(id) { document.getElementById(id).style.display = "flex"; }
     function closeModal(id) { document.getElementById(id).style.display = "none"; }
-
-    function openProduct(id) {
-        closeModal('portfolioModal');
-        openModal(id);
-    }
-
-    function goToPortfolio(currentModalId) {
-        closeModal(currentModalId);
-        openModal('portfolioModal');
-    }
-
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal-overlay')) {
-            event.target.style.display = "none";
-        }
-    }
+    function openProduct(id) { closeModal('portfolioModal'); openModal(id); }
+    function goToPortfolio(currentModalId) { closeModal(currentModalId); openModal('portfolioModal'); }
+    window.onclick = function(event) { if (event.target.classList.contains('modal-overlay')) { event.target.style.display = "none"; } }
 </script>
 
 </body>
+</html>
 </html>
