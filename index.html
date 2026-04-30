@@ -94,37 +94,44 @@
         .product-card { background: #222; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid rgba(176,106,42,0.2); cursor: pointer; transition: 0.3s; }
         .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
 
-        /* --- ESTRUTURA DO DETALHE (CORREÇÃO DESKTOP/MOBILE) --- */
+        /* --- ESTRUTURA DO DETALHE (ORDEM CORRIGIDA) --- */
         .product-detail-container {
             display: flex;
-            flex-direction: column; /* Mobile first */
-            gap: 30px;
+            flex-direction: column; 
+            gap: 25px;
             align-items: center;
         }
 
+        /* Ordem Celular: Texto (1), Imagem (2), Botão (3) */
         .detail-text-side { order: 1; width: 100%; text-align: center; }
         .detail-image-side { order: 2; width: 100%; text-align: center; }
-        .detail-image-side img { width: 100%; max-width: 300px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .back-btn-container { order: 3; width: 100%; text-align: center; }
+
+        .detail-image-side img { width: 100%; max-width: 280px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
         .product-info h2 { font-family: 'Bebas Neue'; font-size: clamp(35px, 5vw, 50px); color: var(--accent); margin-bottom: 15px; }
-        .product-info p { font-size: 17px; line-height: 1.6; color: #444; margin-bottom: 25px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .product-info p { font-size: 17px; line-height: 1.6; color: #444; margin-bottom: 15px; max-width: 500px; margin-left: auto; margin-right: auto; }
 
         .back-btn { 
             background: var(--accent); color: white; border: none; padding: 15px 40px; 
-            border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase;
+            border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; width: 100%;
         }
 
         /* AJUSTES PARA COMPUTADOR (DESKTOP) */
         @media (min-width: 768px) {
             .product-detail-container {
-                flex-direction: row; /* Lado a lado no PC */
+                flex-direction: row; 
                 text-align: left;
                 align-items: center;
                 justify-content: space-between;
+                flex-wrap: wrap; /* Permite que o botão quebre para baixo se necessário */
             }
-            .detail-text-side { width: 55%; text-align: left; }
-            .detail-image-side { width: 40%; }
+            .detail-text-side { width: 55%; text-align: left; order: 1; }
+            .detail-image-side { width: 40%; order: 2; }
+            .back-btn-container { width: 100%; text-align: left; order: 3; margin-top: 10px; }
+            
             .product-info p { margin-left: 0; }
+            .back-btn { width: auto; }
             .cta-button { width: auto; min-width: 220px; }
         }
     </style>
@@ -177,12 +184,14 @@
             <div class="detail-text-side">
                 <div class="product-info">
                     <h2>Sal Parrilla</h2>
-                    <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural. O clássico indispensável para o mestre churrasqueiro.</p>
-                    <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
+                    <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural.</p>
                 </div>
             </div>
             <div class="detail-image-side">
                 <img src="imgsalparrilla.jpg" alt="Sal Parrilla">
+            </div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -196,12 +205,14 @@
             <div class="detail-text-side">
                 <div class="product-info">
                     <h2>Dry Rubs</h2>
-                    <p>Mistura de especiarias secas que criam uma crosta caramelizada e intensa. Ideal para costelas, carnes suínas e preparos de longa duração.</p>
-                    <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
+                    <p>Mistura de especiarias secas que criam uma crosta caramelizada e intensa. Ideal para costelas e carnes suínas.</p>
                 </div>
             </div>
             <div class="detail-image-side">
                 <img src="imgsalbatata.jpg" alt="Dry Rub">
+            </div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -215,12 +226,14 @@
             <div class="detail-text-side">
                 <div class="product-info">
                     <h2>Blends Secos</h2>
-                    <p>Combinações exclusivas para realçar o sabor de grelhados e vegetais. Praticidade com resultado profissional em cada pitada.</p>
-                    <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
+                    <p>Combinações exclusivas para realçar o sabor de grelhados e vegetais com resultado profissional.</p>
                 </div>
             </div>
             <div class="detail-image-side">
                 <img src="imghub.jpg" alt="Blends Secos">
+            </div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -232,8 +245,7 @@
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
         <div style="line-height: 1.8; color: #ccc; text-align: left;">
-            <p>A <strong>Vale Verde</strong> nasceu da paixão pela gastronomia e pelo fogo. Com a linha <strong>Brasa & Sabor</strong>, levamos a padronização das grandes churrascarias para a sua casa.</p><br>
-            <p>Nossos produtos são desenvolvidos com ingredientes selecionados, garantindo que o sal e o tempero sejam coadjuvantes que elevam o protagonista: a carne.</p>
+            <p>A <strong>Vale Verde</strong> leva a padronização das grandes churrascarias para a sua casa com a linha <strong>Brasa & Sabor</strong>.</p>
         </div>
     </div>
 </div>
