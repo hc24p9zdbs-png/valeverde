@@ -49,18 +49,18 @@
         }
 
         .main-content { text-align: center; z-index: 10; max-width: 900px; padding: 20px; width: 100%; }
-        .brand-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(50px, 15vw, 120px); line-height: 0.9; margin-bottom: 20px; }
+        .brand-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(45px, 12vw, 110px); line-height: 0.9; margin-bottom: 20px; }
         .brand-title span { color: var(--accent); }
         .description { font-size: 16px; color: #ccc; margin-bottom: 40px; }
 
-        /* --- BOTÕES --- */
+        /* --- BOTÕES INTERATIVOS (HOVER PC / ACTIVE IPHONE) --- */
         .cta-section { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .cta-button {
             background: linear-gradient(135deg, var(--accent) 0%, #8a4d1a 100%);
             color: white; border: none; padding: 16px 30px; border-radius: 8px;
             font-weight: 700; cursor: pointer; text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.2s ease;
-            width: 100%; max-width: 280px;
+            width: 100%; max-width: 280px; font-size: 14px;
         }
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
@@ -68,62 +68,52 @@
             .cta-button:hover { transform: translateY(-3px); filter: brightness(1.2); }
             .product-card:hover { border-color: var(--accent); transform: translateY(-5px); }
         }
-        .cta-button:active, .product-card:active { transform: scale(0.94); filter: brightness(0.8); }
+        .cta-button:active, .product-card:active { transform: scale(0.95); filter: brightness(0.9); }
 
-        /* --- MODAIS --- */
+        /* --- MODAIS (CORREÇÃO FUNDO BRANCO) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none;
+            background: rgba(0,0,0,0.85); display: none;
             justify-content: center; align-items: center; z-index: 1000;
             backdrop-filter: blur(8px);
         }
+        
         .modal-content {
-            background: #161616; width: 90%; max-width: 850px;
-            padding: 40px 30px; border-radius: 15px; border: 1px solid var(--accent);
+            background: #ffffff; /* Fundo sempre branco */
+            color: var(--text-dark); /* Texto sempre escuro para leitura */
+            width: 90%; max-width: 850px;
+            padding: 45px 25px; border-radius: 15px;
             position: relative; max-height: 90vh; overflow-y: auto;
             transform: scale(0.9); opacity: 0; transition: 0.3s;
         }
-        
-        /* FUNDO TOTALMENTE BRANCO PARA DETALHES */
-        .modal-detail-content { 
-            background: #ffffff !important; 
-            color: var(--text-dark); 
-            border: none; /* Remove borda colorida para fundir com a imagem */
-        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
 
-        .close-button { position: absolute; top: 10px; right: 15px; font-size: 35px; cursor: pointer; color: var(--accent); z-index: 1001; }
-        .close-dark { color: #888; }
+        .close-button { 
+            position: absolute; top: 10px; right: 15px; font-size: 35px; 
+            cursor: pointer; color: #888; z-index: 1001; font-weight: bold;
+        }
 
         /* --- GRID DE PRODUTOS --- */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
-        .product-card { background: #222; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid rgba(176,106,42,0.2); cursor: pointer; transition: 0.3s; }
-        .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
-
-        /* --- ESTRUTURA DO DETALHE --- */
-        .product-detail-container {
-            display: flex;
-            flex-direction: column; 
-            gap: 25px;
-            align-items: center;
-            background: #ffffff; /* Garante o branco atrás de tudo */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .product-card { 
+            background: #f9f9f9; padding: 25px; border-radius: 12px; 
+            text-align: center; border: 1px solid #ddd; cursor: pointer; transition: 0.3s; 
         }
+        .product-card h3 { color: var(--text-dark); font-size: 18px; margin-top: 10px; }
+        .product-card i { font-size: 40px; color: var(--accent); }
 
-        /* Ordem Celular: Texto (1), Imagem (2), Botão (3) */
-        .detail-text-side { order: 1; width: 100%; text-align: center; background: #ffffff; }
-        .detail-image-side { order: 2; width: 100%; text-align: center; background: #ffffff; }
-        .back-btn-container { order: 3; width: 100%; text-align: center; background: #ffffff; }
+        /* --- ESTRUTURA DO DETALHE PRODUTO --- */
+        .product-detail-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
 
-        /* Imagem sem bordas ou sombras que contrastem com o fundo branco */
-        .detail-image-side img { 
-            width: 100%; 
-            max-width: 320px; 
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
+        /* Ordem Mobile: Texto -> Imagem -> Botão */
+        .detail-text-side { order: 1; width: 100%; text-align: center; }
+        .detail-image-side { order: 2; width: 100%; text-align: center; }
+        .back-btn-container { order: 3; width: 100%; text-align: center; }
 
-        .product-info h2 { font-family: 'Bebas Neue'; font-size: clamp(35px, 5vw, 50px); color: var(--accent); margin-bottom: 15px; }
-        .product-info p { font-size: 17px; line-height: 1.6; color: #444; margin-bottom: 15px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .detail-image-side img { width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto; }
+
+        .product-info h2 { font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent); margin-bottom: 10px; }
+        .product-info p { font-size: 16px; color: #444; margin-bottom: 20px; }
 
         .back-btn { 
             background: var(--accent); color: white; border: none; padding: 15px 40px; 
@@ -132,19 +122,12 @@
 
         /* DESKTOP */
         @media (min-width: 768px) {
-            .product-detail-container {
-                flex-direction: row; 
-                text-align: left;
-                align-items: center;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
-            .detail-text-side { width: 55%; text-align: left; order: 1; }
-            .detail-image-side { width: 40%; order: 2; }
-            .back-btn-container { width: 100%; text-align: left; order: 3; margin-top: 10px; }
-            .product-info p { margin-left: 0; }
+            .product-detail-container { flex-direction: row; text-align: left; justify-content: space-between; flex-wrap: wrap; }
+            .detail-text-side { width: 55%; text-align: left; }
+            .detail-image-side { width: 40%; }
+            .back-btn-container { text-align: left; margin-top: 10px; }
             .back-btn { width: auto; }
-            .cta-button { width: auto; min-width: 220px; }
+            .cta-button { width: auto; min-width: 200px; }
         }
     </style>
 </head>
@@ -166,11 +149,11 @@
     </div>
 </div>
 
-<!-- MODAL PORTFÓLIO -->
+<!-- MODAL PORTFÓLIO (AGORA BRANCO) -->
 <div id="portfolioModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('portfolioModal', false)">&times;</span>
-        <h2 style="font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); text-align: center;">Nossos Produtos</h2>
+        <h2 style="font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); text-align: center; margin-bottom: 10px;">Nossos Produtos</h2>
         <div class="portfolio-grid">
             <div class="product-card" onclick="openDetail('detailSal')">
                 <i class="fas fa-mortar-pestle"></i>
@@ -190,8 +173,8 @@
 
 <!-- DETALHE SAL PARRILLA -->
 <div id="detailSal" class="modal-overlay">
-    <div class="modal-content modal-detail-content">
-        <span class="close-button close-dark" onclick="toggleModal('detailSal', false)">&times;</span>
+    <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailSal', false)">&times;</span>
         <div class="product-detail-container">
             <div class="detail-text-side">
                 <div class="product-info">
@@ -211,8 +194,8 @@
 
 <!-- DETALHE DRY RUBS -->
 <div id="detailRub" class="modal-overlay">
-    <div class="modal-content modal-detail-content">
-        <span class="close-button close-dark" onclick="toggleModal('detailRub', false)">&times;</span>
+    <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailRub', false)">&times;</span>
         <div class="product-detail-container">
             <div class="detail-text-side">
                 <div class="product-info">
@@ -232,8 +215,8 @@
 
 <!-- DETALHE BLENDS SECOS -->
 <div id="detailBlend" class="modal-overlay">
-    <div class="modal-content modal-detail-content">
-        <span class="close-button close-dark" onclick="toggleModal('detailBlend', false)">&times;</span>
+    <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailBlend', false)">&times;</span>
         <div class="product-detail-container">
             <div class="detail-text-side">
                 <div class="product-info">
@@ -251,13 +234,14 @@
     </div>
 </div>
 
-<!-- SOBRE NÓS -->
+<!-- SOBRE NÓS (AGORA BRANCO) -->
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
-        <h2 style="font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
-        <div style="line-height: 1.8; color: #ccc; text-align: left;">
-            <p>A <strong>Vale Verde</strong> leva a padronização das grandes churrascarias para a sua casa com a linha <strong>Brasa & Sabor</strong>.</p>
+        <h2 style="font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); margin-bottom: 20px; text-align: center;">Sobre Nós</h2>
+        <div style="line-height: 1.8; color: #444; text-align: left; font-size: 15px;">
+            <p>A <strong>Vale Verde</strong> leva a padronização das grandes churrascarias para a sua casa com a linha <strong>Brasa & Sabor</strong>.</p><br>
+            <p>Focamos em qualidade superior para que você tenha a melhor experiência na brasa.</p>
         </div>
     </div>
 </div>
@@ -268,8 +252,9 @@
         if (!modal) return;
         if (show) {
             modal.style.display = "flex";
-            void modal.offsetWidth; 
-            modal.classList.add('active');
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
             document.body.style.overflow = 'hidden';
         } else {
             modal.classList.remove('active');
@@ -292,6 +277,7 @@
         setTimeout(() => { toggleModal('portfolioModal', true); }, 350);
     }
 
+    // Fechar ao clicar fora do conteúdo branco
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
             toggleModal(event.target.id, false);
