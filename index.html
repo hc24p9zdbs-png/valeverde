@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
     <title>Vale Verde - Brasa & Sabor</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
@@ -15,13 +15,19 @@
             --olive: #5E6A2E;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* Reset para Mobile: remove atrasos de toque e destaques azuis no iPhone */
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+            touch-action: manipulation;
+        }
         
         body {
             background: var(--dark);
             font-family: 'Montserrat', sans-serif;
             color: var(--text-light);
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
         .slide-container {
@@ -37,37 +43,51 @@
         }
 
         .header {
-            position: absolute; top: 40px; left: 60px; right: 60px;
-            display: flex; justify-content: space-between; align-items: center;
+            position: absolute; top: 30px; left: 20px; right: 20px;
+            display: flex; justify-content: center; align-items: center;
             z-index: 10; border-bottom: 1px solid rgba(176, 106, 42, 0.2);
             padding-bottom: 15px;
         }
 
-        .logo-vale { font-weight: 700; letter-spacing: 2px; color: var(--olive); }
+        @media (min-width: 768px) {
+            .header { top: 40px; left: 60px; right: 60px; justify-content: space-between; }
+        }
 
-        .main-content { text-align: center; z-index: 10; max-width: 900px; padding: 20px; }
+        .logo-vale { font-weight: 700; letter-spacing: 2px; color: var(--olive); font-size: 14px; text-align: center; }
 
-        .tagline { color: var(--accent); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+        .main-content { text-align: center; z-index: 10; max-width: 900px; padding: 20px; width: 100%; }
 
-        .brand-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 10vw, 120px); line-height: 0.9; margin-bottom: 20px; }
+        .tagline { color: var(--accent); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; font-size: 12px; }
+
+        .brand-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(50px, 15vw, 120px); line-height: 0.9; margin-bottom: 20px; }
         .brand-title span { color: var(--accent); }
 
-        .description { font-size: 18px; line-height: 1.6; color: #ccc; margin-bottom: 40px; padding: 0 50px; }
+        .description { font-size: 16px; line-height: 1.6; color: #ccc; margin-bottom: 40px; padding: 0 10px; }
 
-        .cta-section { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        /* --- BOTÕES INTERATIVOS --- */
+        .cta-section { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 
         .cta-button {
             background: linear-gradient(135deg, var(--accent) 0%, #8a4d1a 100%);
-            color: white; border: none; padding: 18px 40px;
-            border-radius: 5px; font-weight: 700; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white; border: none; padding: 16px 30px;
+            border-radius: 8px; font-weight: 700; cursor: pointer;
             text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.1s ease, filter 0.2s;
+            font-size: 14px;
+            width: 100%;
+            max-width: 280px;
         }
 
-        .cta-button:hover { transform: translateY(-3px) scale(1.05); filter: brightness(1.1); }
+        /* Efeito de toque para iPhone/Android */
+        .cta-button:active {
+            transform: scale(0.95);
+            filter: brightness(0.8);
+        }
+
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
+        /* --- MODAIS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); display: none;
@@ -76,56 +96,62 @@
         }
 
         .modal-content {
-            background: #161616; width: 92%; max-width: 800px;
-            padding: 40px; border-radius: 12px; border: 1px solid var(--accent);
+            background: #161616; width: 90%; max-width: 800px;
+            padding: 30px 20px; border-radius: 15px; border: 1px solid var(--accent);
             position: relative; max-height: 85vh; overflow-y: auto;
-            transform: translateY(20px); opacity: 0; transition: 0.4s;
+            transform: scale(0.9); opacity: 0; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .modal-detail-content {
-            background: #ffffff;
-            color: var(--text-dark);
-            border: none;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+
+        .modal-detail-content { background: #ffffff; color: var(--text-dark); border: none; }
+
+        /* Botão de Fechar Grande para dedos */
+        .close-button { 
+            position: absolute; top: 10px; right: 15px; font-size: 40px; 
+            cursor: pointer; color: var(--accent); z-index: 1001; 
+            padding: 10px;
         }
-
-        .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
-
-        .close-button { position: absolute; top: 15px; right: 20px; font-size: 35px; cursor: pointer; color: var(--accent); z-index: 1001; }
         .close-dark { color: #555; }
 
+        /* --- GRID DE PRODUTOS --- */
         .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px; margin-top: 30px;
+            display: grid; grid-template-columns: 1fr;
+            gap: 15px; margin-top: 20px;
+        }
+
+        @media (min-width: 480px) {
+            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
         }
 
         .product-card {
-            background: #222; padding: 30px 20px; border-radius: 10px;
-            text-align: center; border: 1px solid rgba(176, 106, 42, 0.1);
-            cursor: pointer; transition: 0.3s;
+            background: #222; padding: 25px 15px; border-radius: 12px;
+            text-align: center; border: 1px solid rgba(176, 106, 42, 0.2);
+            cursor: pointer; transition: background 0.2s;
         }
 
-        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); background: #2a2a2a; }
-        .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
+        .product-card:active { background: #333; transform: scale(0.98); }
 
-        .product-detail { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; text-align: left; }
-        .product-image { flex: 1; min-width: 250px; text-align: center; }
-        .product-image img { width: 100%; max-width: 300px; border-radius: 4px; }
-        .product-info { flex: 1.5; min-width: 250px; }
-        .product-info h2 { font-family: 'Bebas Neue'; font-size: 45px; color: var(--accent); margin-bottom: 10px; }
-        .product-info p { line-height: 1.6; color: #444; font-size: 16px; }
+        .product-card i { font-size: 40px; color: var(--accent); margin-bottom: 12px; }
+
+        /* --- DETALHE DO PRODUTO --- */
+        .product-detail { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+        .product-image img { width: 100%; max-width: 250px; height: auto; border-radius: 8px; }
+        .product-info h2 { font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); margin-bottom: 10px; }
+        .product-info p { line-height: 1.6; color: #444; font-size: 15px; text-align: center; }
         
         .back-btn { 
-            background: var(--accent); color: white; border: none; padding: 12px 25px; 
-            margin-top: 25px; border-radius: 4px; cursor: pointer; font-weight: bold; 
-            text-transform: uppercase; transition: 0.3s;
+            background: var(--accent); color: white; border: none; padding: 14px 25px; 
+            margin-top: 20px; border-radius: 8px; cursor: pointer; font-weight: bold; 
+            width: 100%; text-transform: uppercase;
         }
+        .back-btn:active { background: #8a4d1a; transform: scale(0.95); }
 
-        @media (max-width: 768px) {
-            .header { top: 20px; left: 20px; right: 20px; }
-            .brand-title { font-size: 70px; }
-            .cta-button { width: 100%; }
-            .product-detail { text-align: center; }
+        @media (min-width: 768px) {
+            .product-detail { flex-direction: row; text-align: left; }
+            .product-info p { text-align: left; }
+            .back-btn { width: auto; }
+            .description { padding: 0 50px; }
         }
     </style>
 </head>
@@ -151,28 +177,28 @@
 <div id="portfolioModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('portfolioModal', false)">&times;</span>
-        <h2 style="font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent); text-align: center; margin-bottom: 25px;">Nossos Produtos</h2>
+        <h2 style="font-family: 'Bebas Neue'; font-size: 32px; color: var(--accent); text-align: center; margin-bottom: 20px;">Nossos Produtos</h2>
         <div class="portfolio-grid">
             <div class="product-card" onclick="openDetail('detailSal')">
                 <i class="fas fa-mortar-pestle"></i>
                 <h3>Sal Parrilla</h3>
-                <p>Ver Detalhes</p>
+                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
             <div class="product-card" onclick="openDetail('detailRub')">
                 <i class="fas fa-fire"></i>
                 <h3>Dry Rubs</h3>
-                <p>Ver Detalhes</p>
+                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
             <div class="product-card" onclick="openDetail('detailBlend')">
                 <i class="fas fa-utensils"></i>
                 <h3>Blends Secos</h3>
-                <p>Ver Detalhes</p>
+                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- DETALHES DOS PRODUTOS (FUNDO BRANCO) -->
+<!-- DETALHES -->
 <div id="detailSal" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailSal', false)">&times;</span>
@@ -180,7 +206,7 @@
             <div class="product-image"><img src="imgsalparrilla.jpg" alt="Sal Parrilla"></div>
             <div class="product-info">
                 <h2>Sal Parrilla</h2>
-                <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural. Ideal para cortes de parrilla e churrasco de alta performance.</p>
+                <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
             </div>
         </div>
@@ -194,7 +220,7 @@
             <div class="product-image"><img src="imgsalbatata.jpg" alt="Dry Rub"></div>
             <div class="product-info">
                 <h2>Dry Rubs</h2>
-                <p>Nossos Blends de especiarias secas foram criados para formar uma crosta de sabor intensa e caramelizada na carne. Perfeito para preparos defumados ou grelhados.</p>
+                <p>Nossos Blends de especiarias secas foram criados para formar uma crosta de sabor intensa e caramelizada na carne.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
             </div>
         </div>
@@ -208,25 +234,25 @@
             <div class="product-image"><img src="imghub.jpg" alt="Blends Secos"></div>
             <div class="product-info">
                 <h2>Blends Secos</h2>
-                <p>Soluções práticas e equilibradas que realçam o sabor natural dos grelhados e acompanhamentos, mantendo a padronização e o toque profissional em cada prato.</p>
+                <p>Soluções práticas que realçam o sabor natural dos grelhados, mantendo a padronização profissional.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL SOBRE NÓS (TEXTO ATUALIZADO) -->
+<!-- SOBRE NÓS -->
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
-        <h2 style="font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
-        <div style="line-height: 1.8; color: #ccc; text-align: justify; font-size: 16px;">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 32px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
+        <div style="line-height: 1.6; color: #ccc; text-align: left; font-size: 14px;">
             <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização.</p><br>
             <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p><br>
             <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p><br>
             <p>Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p><br>
-            <p style="text-align: center; color: var(--accent); font-weight: 700; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px; text-transform: uppercase;">
-                Nosso princípio central é:<br>Equilíbrio entre sal e brasa.
+            <p style="text-align: center; color: var(--accent); font-weight: 700; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px;">
+                EQUILÍBRIO ENTRE SAL E BRASA.
             </p>
         </div>
     </div>
@@ -238,23 +264,30 @@
         if (!modal) return;
         if (show) {
             modal.style.display = "flex";
-            setTimeout(() => modal.classList.add('active'), 10);
+            // Força reflow para animação funcionar no iOS
+            void modal.offsetWidth; 
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Trava o scroll do fundo
         } else {
             modal.classList.remove('active');
-            setTimeout(() => modal.style.display = "none", 400);
+            setTimeout(() => {
+                modal.style.display = "none";
+                document.body.style.overflow = ''; 
+            }, 300);
         }
     }
 
     function openDetail(detailId) {
         toggleModal('portfolioModal', false); 
-        setTimeout(() => { toggleModal(detailId, true); }, 450);
+        setTimeout(() => { toggleModal(detailId, true); }, 350);
     }
 
     function backToPortfolio(detailId) {
         toggleModal(detailId, false); 
-        setTimeout(() => { toggleModal('portfolioModal', true); }, 450);
+        setTimeout(() => { toggleModal('portfolioModal', true); }, 350);
     }
 
+    // Fecha ao tocar fora da caixa (importante para mobile)
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
             toggleModal(event.target.id, false);
