@@ -74,6 +74,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
+        /* Efeitos Interativos */
         @media (hover: hover) {
             .cta-button:hover {
                 transform: translateY(-3px) scale(1.05);
@@ -114,33 +115,12 @@
             cursor: pointer; color: var(--accent); padding: 5px;
         }
 
-        /* Portfolio Estilização */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .product-card {
-            background: #222;
-            padding: 30px 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(176, 106, 42, 0.1);
-            transition: 0.3s;
-        }
-
-        .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
-        .product-card h3 { font-family: 'Bebas Neue'; font-size: 24px; letter-spacing: 1px; margin-bottom: 10px; }
-        .product-card p { font-size: 14px; color: #999; line-height: 1.4; }
-
+        /* Ajustes Mobile */
         @media (max-width: 768px) {
             .header { top: 20px; left: 20px; right: 20px; }
             .cta-button { width: 100%; max-width: 280px; }
             .brand-title { font-size: 70px; }
             .description { padding: 0; font-size: 16px; }
-            .modal-content { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -157,34 +137,8 @@
         <h1 class="brand-title">BRASA <span>&</span> SABOR</h1>
         <p class="description">Qualidade superior e padronização para o preparo moderno de carnes e grelhados.</p>
         <div class="cta-section">
-            <!-- BOTÃO CONHECER PRODUTOS CORRIGIDO -->
             <button class="cta-button" onclick="toggleModal('portfolioModal', true)">CONHECER PRODUTOS</button>
             <button class="cta-button cta-secondary" onclick="toggleModal('infoModal', true)">SOBRE NÓS</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL PORTFÓLIO (O QUE ESTAVA FALTANDO) -->
-<div id="portfolioModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-button" onclick="toggleModal('portfolioModal', false)">&times;</span>
-        <h2 style="font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent); text-align: center; margin-bottom: 25px;">Linha Brasa & Sabor</h2>
-        <div class="portfolio-grid">
-            <div class="product-card">
-                <i class="fas fa-mortar-pestle"></i>
-                <h3>Sal Parrilla</h3>
-                <p>Granulometria entrefina para salga uniforme sem desidratar a carne.</p>
-            </div>
-            <div class="product-card">
-                <i class="fas fa-fire"></i>
-                <h3>Dry Rubs</h3>
-                <p>Misturas de especiarias para criar crostas de sabor intensas.</p>
-            </div>
-            <div class="product-card">
-                <i class="fas fa-utensils"></i>
-                <h3>Blends Secos</h3>
-                <p>Soluções práticas que realçam o sabor natural dos grelhados.</p>
-            </div>
         </div>
     </div>
 </div>
@@ -197,14 +151,14 @@
         <div style="line-height: 1.8; color: #ccc; text-align: justify; font-size: 16px;">
             <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização.</p>
             <br>
-            <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p>
+            <p>Dentro do seu portfólio, nasce <strong>Brasa & Sabor</strong>, uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p>
             <br>
             <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p>
             <br>
             <p>Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p>
             <br>
-            <p style="text-align: center; color: var(--accent); font-weight: 700; font-size: 18px; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px; text-transform: uppercase;">
-                Nosso princípio central é:<br>Equilíbrio entre sal e brasa.
+            <p style="text-align: center; color: var(--accent); font-weight: 700; font-size: 18px; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px;">
+                NOSSO PRINCÍPIO CENTRAL É:<br>EQUILÍBRIO ENTRE SAL E BRASA.
             </p>
         </div>
     </div>
@@ -222,7 +176,6 @@
         }
     }
 
-    // Fecha ao clicar fora do modal
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
             toggleModal(event.target.id, false);
