@@ -54,7 +54,6 @@
 
         .description { font-size: 18px; line-height: 1.6; color: #ccc; margin-bottom: 40px; padding: 0 50px; }
 
-        /* --- BOTÕES PRINCIPAIS --- */
         .cta-section { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         .cta-button {
@@ -67,11 +66,8 @@
         }
 
         .cta-button:hover { transform: translateY(-3px) scale(1.05); filter: brightness(1.1); }
-        .cta-button:active { transform: translateY(1px) scale(0.95); }
-
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
-        /* --- MODAIS (GERAL) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); display: none;
@@ -86,10 +82,9 @@
             transform: translateY(20px); opacity: 0; transition: 0.4s;
         }
 
-        /* --- MODAL DE DETALHES (FUNDO BRANCO) --- */
         .modal-detail-content {
-            background: #ffffff; /* Fundo Branco conforme solicitado */
-            color: var(--text-dark); /* Texto Escuro para contraste */
+            background: #ffffff;
+            color: var(--text-dark);
             border: none;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
@@ -97,12 +92,8 @@
         .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
 
         .close-button { position: absolute; top: 15px; right: 20px; font-size: 35px; cursor: pointer; color: var(--accent); z-index: 1001; }
-        
-        /* Botão de fechar específico para fundo branco para não sumir */
         .close-dark { color: #555; }
-        .close-dark:hover { color: var(--accent); }
 
-        /* --- GRID DE PRODUTOS --- */
         .portfolio-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px; margin-top: 30px;
@@ -114,15 +105,9 @@
             cursor: pointer; transition: 0.3s;
         }
 
-        .product-card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--accent);
-            background: #2a2a2a;
-        }
-
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); background: #2a2a2a; }
         .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
 
-        /* --- DETALHE DO PRODUTO --- */
         .product-detail { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; text-align: left; }
         .product-image { flex: 1; min-width: 250px; text-align: center; }
         .product-image img { width: 100%; max-width: 300px; border-radius: 4px; }
@@ -135,15 +120,12 @@
             margin-top: 25px; border-radius: 4px; cursor: pointer; font-weight: bold; 
             text-transform: uppercase; transition: 0.3s;
         }
-        .back-btn:hover { background: #8a4d1a; }
 
         @media (max-width: 768px) {
             .header { top: 20px; left: 20px; right: 20px; }
             .brand-title { font-size: 70px; }
-            .description { padding: 0; font-size: 16px; }
             .cta-button { width: 100%; }
             .product-detail { text-align: center; }
-            .product-info h2 { font-size: 35px; }
         }
     </style>
 </head>
@@ -165,7 +147,7 @@
     </div>
 </div>
 
-<!-- MODAL PORTFÓLIO (MENU) -->
+<!-- MODAL PORTFÓLIO -->
 <div id="portfolioModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('portfolioModal', false)">&times;</span>
@@ -190,7 +172,7 @@
     </div>
 </div>
 
-<!-- DETALHE SAL PARRILLA (FUNDO BRANCO) -->
+<!-- DETALHES DOS PRODUTOS (FUNDO BRANCO) -->
 <div id="detailSal" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailSal', false)">&times;</span>
@@ -199,29 +181,26 @@
             <div class="product-info">
                 <h2>Sal Parrilla</h2>
                 <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural. Ideal para cortes de parrilla e churrasco de alta performance.</p>
-                <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR AO CATÁLOGO</button>
+                <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- DETALHE DRY RUB (FUNDO BRANCO + IMAGEM CORRIGIDA) -->
 <div id="detailRub" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailRub', false)">&times;</span>
         <div class="product-detail">
-            <!-- Imagem corrigida para o nome que está no seu GitHub -->
             <div class="product-image"><img src="imgsalbatata.jpg" alt="Dry Rub"></div>
             <div class="product-info">
                 <h2>Dry Rubs</h2>
                 <p>Nossos Blends de especiarias secas foram criados para formar uma crosta de sabor intensa e caramelizada na carne. Perfeito para preparos defumados ou grelhados.</p>
-                <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR AO CATÁLOGO</button>
+                <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- DETALHE BLENDS (FUNDO BRANCO) -->
 <div id="detailBlend" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailBlend', false)">&times;</span>
@@ -230,21 +209,25 @@
             <div class="product-info">
                 <h2>Blends Secos</h2>
                 <p>Soluções práticas e equilibradas que realçam o sabor natural dos grelhados e acompanhamentos, mantendo a padronização e o toque profissional em cada prato.</p>
-                <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR AO CATÁLOGO</button>
+                <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL SOBRE NÓS -->
+<!-- MODAL SOBRE NÓS (TEXTO ATUALIZADO) -->
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 40px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
         <div style="line-height: 1.8; color: #ccc; text-align: justify; font-size: 16px;">
             <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização.</p><br>
-            <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para carnes e grelhados.</p><br>
-            <p style="text-align: center; color: var(--accent); font-weight: 700; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px;">NOSSO PRINCÍPIO CENTRAL É:<br>EQUILÍBRIO ENTRE SAL E BRASA.</p>
+            <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p><br>
+            <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p><br>
+            <p>Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p><br>
+            <p style="text-align: center; color: var(--accent); font-weight: 700; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px; text-transform: uppercase;">
+                Nosso princípio central é:<br>Equilíbrio entre sal e brasa.
+            </p>
         </div>
     </div>
 </div>
@@ -264,16 +247,12 @@
 
     function openDetail(detailId) {
         toggleModal('portfolioModal', false); 
-        setTimeout(() => {
-            toggleModal(detailId, true); 
-        }, 450);
+        setTimeout(() => { toggleModal(detailId, true); }, 450);
     }
 
     function backToPortfolio(detailId) {
         toggleModal(detailId, false); 
-        setTimeout(() => {
-            toggleModal('portfolioModal', true); 
-        }, 450);
+        setTimeout(() => { toggleModal('portfolioModal', true); }, 450);
     }
 
     window.onclick = function(event) {
