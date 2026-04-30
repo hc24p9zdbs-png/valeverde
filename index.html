@@ -15,7 +15,6 @@
             --olive: #5E6A2E;
         }
 
-        /* Reset para Mobile: remove atrasos de toque e destaques azuis no iPhone */
         * { 
             margin: 0; padding: 0; box-sizing: border-box; 
             -webkit-tap-highlight-color: transparent; 
@@ -64,7 +63,6 @@
 
         .description { font-size: 16px; line-height: 1.6; color: #ccc; margin-bottom: 40px; padding: 0 10px; }
 
-        /* --- BOTÕES INTERATIVOS --- */
         .cta-section { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 
         .cta-button {
@@ -73,21 +71,16 @@
             border-radius: 8px; font-weight: 700; cursor: pointer;
             text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.1s ease, filter 0.2s;
+            transition: transform 0.1s ease;
             font-size: 14px;
             width: 100%;
             max-width: 280px;
         }
 
-        /* Efeito de toque para iPhone/Android */
-        .cta-button:active {
-            transform: scale(0.95);
-            filter: brightness(0.8);
-        }
+        .cta-button:active { transform: scale(0.95); filter: brightness(0.8); }
 
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
-        /* --- MODAIS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); display: none;
@@ -97,24 +90,21 @@
 
         .modal-content {
             background: #161616; width: 90%; max-width: 800px;
-            padding: 30px 20px; border-radius: 15px; border: 1px solid var(--accent);
-            position: relative; max-height: 85vh; overflow-y: auto;
-            transform: scale(0.9); opacity: 0; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 35px 25px; border-radius: 15px; border: 1px solid var(--accent);
+            position: relative; max-height: 90vh; overflow-y: auto;
+            transform: scale(0.9); opacity: 0; transition: 0.3s;
         }
 
         .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
 
         .modal-detail-content { background: #ffffff; color: var(--text-dark); border: none; }
 
-        /* Botão de Fechar Grande para dedos */
         .close-button { 
-            position: absolute; top: 10px; right: 15px; font-size: 40px; 
-            cursor: pointer; color: var(--accent); z-index: 1001; 
-            padding: 10px;
+            position: absolute; top: 5px; right: 10px; font-size: 40px; 
+            cursor: pointer; color: var(--accent); z-index: 1001; padding: 10px;
         }
         .close-dark { color: #555; }
 
-        /* --- GRID DE PRODUTOS --- */
         .portfolio-grid {
             display: grid; grid-template-columns: 1fr;
             gap: 15px; margin-top: 20px;
@@ -127,31 +117,39 @@
         .product-card {
             background: #222; padding: 25px 15px; border-radius: 12px;
             text-align: center; border: 1px solid rgba(176, 106, 42, 0.2);
-            cursor: pointer; transition: background 0.2s;
+            cursor: pointer;
         }
-
         .product-card:active { background: #333; transform: scale(0.98); }
-
         .product-card i { font-size: 40px; color: var(--accent); margin-bottom: 12px; }
 
-        /* --- DETALHE DO PRODUTO --- */
-        .product-detail { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
-        .product-image img { width: 100%; max-width: 250px; height: auto; border-radius: 8px; }
-        .product-info h2 { font-family: 'Bebas Neue'; font-size: 35px; color: var(--accent); margin-bottom: 10px; }
-        .product-info p { line-height: 1.6; color: #444; font-size: 15px; text-align: center; }
+        /* --- DETALHE INVERTIDO (TEXTO ANTES DA IMAGEM) --- */
+        .product-detail { 
+            display: flex; 
+            flex-direction: column; /* Coluna no mobile */
+            gap: 20px; 
+            align-items: center; 
+            text-align: center; 
+        }
+        
+        .product-info { order: 1; width: 100%; } /* Texto primeiro */
+        .product-image { order: 2; width: 100%; } /* Imagem depois */
+
+        .product-image img { width: 100%; max-width: 280px; height: auto; border-radius: 8px; }
+        .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); margin-bottom: 10px; }
+        .product-info p { line-height: 1.6; color: #444; font-size: 16px; margin-bottom: 20px; }
         
         .back-btn { 
             background: var(--accent); color: white; border: none; padding: 14px 25px; 
-            margin-top: 20px; border-radius: 8px; cursor: pointer; font-weight: bold; 
-            width: 100%; text-transform: uppercase;
+            border-radius: 8px; cursor: pointer; font-weight: bold; 
+            width: 100%; text-transform: uppercase; order: 3;
         }
-        .back-btn:active { background: #8a4d1a; transform: scale(0.95); }
+        .back-btn:active { transform: scale(0.95); }
 
         @media (min-width: 768px) {
-            .product-detail { flex-direction: row; text-align: left; }
-            .product-info p { text-align: left; }
+            .product-detail { flex-direction: row; text-align: left; align-items: flex-start; }
+            .product-info { flex: 1.5; text-align: left; }
+            .product-image { flex: 1; text-align: center; }
             .back-btn { width: auto; }
-            .description { padding: 0 50px; }
         }
     </style>
 </head>
@@ -182,33 +180,30 @@
             <div class="product-card" onclick="openDetail('detailSal')">
                 <i class="fas fa-mortar-pestle"></i>
                 <h3>Sal Parrilla</h3>
-                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
             <div class="product-card" onclick="openDetail('detailRub')">
                 <i class="fas fa-fire"></i>
                 <h3>Dry Rubs</h3>
-                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
             <div class="product-card" onclick="openDetail('detailBlend')">
                 <i class="fas fa-utensils"></i>
                 <h3>Blends Secos</h3>
-                <p style="font-size: 12px; color: #888;">Toque para ver</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- DETALHES -->
+<!-- DETALHES COM TEXTO ANTES DA IMAGEM -->
 <div id="detailSal" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailSal', false)">&times;</span>
         <div class="product-detail">
-            <div class="product-image"><img src="imgsalparrilla.jpg" alt="Sal Parrilla"></div>
             <div class="product-info">
                 <h2>Sal Parrilla</h2>
-                <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural.</p>
+                <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural. Ideal para cortes de parrilla e churrasco de alta performance.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
             </div>
+            <div class="product-image"><img src="imgsalparrilla.jpg" alt="Sal Parrilla"></div>
         </div>
     </div>
 </div>
@@ -217,12 +212,12 @@
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailRub', false)">&times;</span>
         <div class="product-detail">
-            <div class="product-image"><img src="imgsalbatata.jpg" alt="Dry Rub"></div>
             <div class="product-info">
                 <h2>Dry Rubs</h2>
-                <p>Nossos Blends de especiarias secas foram criados para formar uma crosta de sabor intensa e caramelizada na carne.</p>
+                <p>Nossos Blends de especiarias secas foram criados para formar uma crosta de sabor intensa e caramelizada na carne. Perfeito para preparos defumados ou grelhados.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
             </div>
+            <div class="product-image"><img src="imgsalbatata.jpg" alt="Dry Rub"></div>
         </div>
     </div>
 </div>
@@ -231,12 +226,12 @@
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailBlend', false)">&times;</span>
         <div class="product-detail">
-            <div class="product-image"><img src="imghub.jpg" alt="Blends Secos"></div>
             <div class="product-info">
                 <h2>Blends Secos</h2>
-                <p>Soluções práticas que realçam o sabor natural dos grelhados, mantendo a padronização profissional.</p>
+                <p>Soluções práticas e equilibradas que realçam o sabor natural dos grelhados e acompanhamentos, mantendo a padronização e o toque profissional em cada prato.</p>
                 <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
             </div>
+            <div class="product-image"><img src="imghub.jpg" alt="Blends Secos"></div>
         </div>
     </div>
 </div>
@@ -246,7 +241,7 @@
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 32px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
-        <div style="line-height: 1.6; color: #ccc; text-align: left; font-size: 14px;">
+        <div style="line-height: 1.6; color: #ccc; font-size: 14px;">
             <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização.</p><br>
             <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p><br>
             <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p><br>
@@ -264,10 +259,9 @@
         if (!modal) return;
         if (show) {
             modal.style.display = "flex";
-            // Força reflow para animação funcionar no iOS
             void modal.offsetWidth; 
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Trava o scroll do fundo
+            document.body.style.overflow = 'hidden';
         } else {
             modal.classList.remove('active');
             setTimeout(() => {
@@ -287,7 +281,6 @@
         setTimeout(() => { toggleModal('portfolioModal', true); }, 350);
     }
 
-    // Fecha ao tocar fora da caixa (importante para mobile)
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
             toggleModal(event.target.id, false);
