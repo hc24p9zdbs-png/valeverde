@@ -47,10 +47,6 @@
             padding-bottom: 15px;
         }
 
-        @media (min-width: 768px) {
-            .header { top: 40px; left: 60px; right: 60px; justify-content: space-between; }
-        }
-
         .logo-vale { font-weight: 700; letter-spacing: 2px; color: var(--olive); font-size: 14px; text-align: center; }
 
         .main-content { text-align: center; z-index: 10; max-width: 900px; padding: 20px; width: 100%; }
@@ -75,10 +71,9 @@
             font-size: 14px;
             width: 100%;
             max-width: 280px;
-            position: relative;
         }
 
-        /* EFEITO PARA COMPUTADOR (MOUSE) */
+        /* Hover apenas para Computador */
         @media (hover: hover) {
             .cta-button:hover {
                 transform: translateY(-3px);
@@ -92,16 +87,11 @@
             }
         }
 
-        /* EFEITO PARA CELULAR (TOQUE) */
-        .cta-button:active {
-            transform: scale(0.92);
+        /* Toque para Celular (iPhone/Android) */
+        .cta-button:active, .product-card:active, .back-btn:active {
+            transform: scale(0.94);
             filter: brightness(0.8);
             transition: 0.1s;
-        }
-
-        .product-card:active {
-            background: #333;
-            transform: scale(0.96);
         }
 
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
@@ -127,7 +117,7 @@
 
         .close-button { 
             position: absolute; top: 5px; right: 10px; font-size: 40px; 
-            cursor: pointer; color: var(--accent); z-index: 1001; padding: 15px;
+            cursor: pointer; color: var(--accent); z-index: 1001; padding: 10px;
         }
         .close-dark { color: #555; }
 
@@ -148,27 +138,29 @@
         }
         .product-card i { font-size: 40px; color: var(--accent); margin-bottom: 12px; }
 
-        /* --- DETALHE PRODUTO --- */
+        /* --- LAYOUT: TEXTO ANTES DA FOTO --- */
         .product-detail { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
-        .product-info { order: 1; width: 100%; }
-        .product-image { order: 2; width: 100%; }
+        
+        .product-info { order: 1; width: 100%; } /* Texto primeiro */
+        .product-image { order: 2; width: 100%; } /* Foto no meio */
+        .back-btn-container { order: 3; width: 100%; } /* Botão por último */
 
-        .product-image img { width: 100%; max-width: 280px; height: auto; border-radius: 8px; }
+        .product-image img { width: 100%; max-width: 250px; height: auto; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); margin-bottom: 10px; }
-        .product-info p { line-height: 1.6; color: #444; font-size: 16px; margin-bottom: 20px; }
+        .product-info p { line-height: 1.6; color: #444; font-size: 16px; margin-bottom: 10px; }
         
         .back-btn { 
-            background: var(--accent); color: white; border: none; padding: 14px 25px; 
+            background: var(--accent); color: white; border: none; padding: 16px 30px; 
             border-radius: 8px; cursor: pointer; font-weight: bold; 
-            width: 100%; text-transform: uppercase; transition: 0.2s;
+            width: 100%; text-transform: uppercase; font-size: 14px;
         }
 
         @media (min-width: 768px) {
-            .product-detail { flex-direction: row; text-align: left; align-items: flex-start; }
+            .product-detail { flex-direction: row; flex-wrap: wrap; text-align: left; align-items: flex-start; }
             .product-info { flex: 1.5; text-align: left; }
             .product-image { flex: 1; text-align: center; }
             .back-btn { width: auto; }
-            .cta-button { width: auto; min-width: 200px; }
+            .back-btn-container { text-align: left; }
         }
     </style>
 </head>
@@ -212,7 +204,7 @@
     </div>
 </div>
 
-<!-- DETALHES -->
+<!-- DETALHE SAL PARRILLA -->
 <div id="detailSal" class="modal-overlay">
     <div class="modal-content modal-detail-content">
         <span class="close-button close-dark" onclick="toggleModal('detailSal', false)">&times;</span>
@@ -220,28 +212,58 @@
             <div class="product-info">
                 <h2>Sal Parrilla</h2>
                 <p>Granulometria entrefina desenvolvida para garantir a salga uniforme da carne sem retirar o seu suco natural.</p>
-                <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
             </div>
             <div class="product-image"><img src="imgsalparrilla.jpg" alt="Sal Parrilla"></div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- (Repita a estrutura para os outros detalhes se necessário) -->
+<!-- DETALHE DRY RUBS (CORRIGIDO) -->
+<div id="detailRub" class="modal-overlay">
+    <div class="modal-content modal-detail-content">
+        <span class="close-button close-dark" onclick="toggleModal('detailRub', false)">&times;</span>
+        <div class="product-detail">
+            <div class="product-info">
+                <h2>Dry Rubs</h2>
+                <p>Blends de especiarias secas que criam uma crosta de sabor intensa e caramelizada. Essencial para churrasco defumado.</p>
+            </div>
+            <div class="product-image"><img src="imgsalbatata.jpg" alt="Dry Rub"></div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DETALHE BLENDS SECOS (CORRIGIDO) -->
+<div id="detailBlend" class="modal-overlay">
+    <div class="modal-content modal-detail-content">
+        <span class="close-button close-dark" onclick="toggleModal('detailBlend', false)">&times;</span>
+        <div class="product-detail">
+            <div class="product-info">
+                <h2>Blends Secos</h2>
+                <p>Praticidade e equilíbrio para realçar o sabor de grelhados e legumes, mantendo o padrão de chef em casa.</p>
+            </div>
+            <div class="product-image"><img src="imghub.jpg" alt="Blends Secos"></div>
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- SOBRE NÓS -->
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 32px; color: var(--accent); margin-bottom: 20px;">Sobre Nós</h2>
-        <div style="line-height: 1.6; color: #ccc; font-size: 14px;">
-            <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização.</p><br>
-            <p>Dentro do portfólio <strong>Brasa & Sabor</strong>, há uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p><br>
-            <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p><br>
-            <p>Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p><br>
-            <p style="text-align: center; color: var(--accent); font-weight: 700; border-top: 1px solid rgba(176,106,42,0.3); padding-top: 20px;">
-                EQUILÍBRIO ENTRE SAL E BRASA.
-            </p>
+        <div style="line-height: 1.6; color: #ccc; font-size: 14px; text-align: left;">
+            <p><strong>Vale Verde</strong> é focada em qualidade e padronização.</p><br>
+            <p><strong>Brasa & Sabor</strong> é nossa linha premium de temperos para o churrasco moderno.</p><br>
+            <p style="text-align: center; color: var(--accent); font-weight: 700;">EQUILÍBRIO ENTRE SAL E BRASA.</p>
         </div>
     </div>
 </div>
@@ -259,7 +281,9 @@
             modal.classList.remove('active');
             setTimeout(() => {
                 modal.style.display = "none";
-                document.body.style.overflow = ''; 
+                if(!document.querySelector('.modal-overlay.active')) {
+                    document.body.style.overflow = ''; 
+                }
             }, 300);
         }
     }
