@@ -83,8 +83,13 @@
             position: relative; max-height: 90vh; overflow-y: auto;
             transform: scale(0.9); opacity: 0; transition: 0.3s;
         }
-        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
-        .modal-detail-content { background: #ffffff; color: var(--text-dark); }
+        
+        /* FUNDO TOTALMENTE BRANCO PARA DETALHES */
+        .modal-detail-content { 
+            background: #ffffff !important; 
+            color: var(--text-dark); 
+            border: none; /* Remove borda colorida para fundir com a imagem */
+        }
 
         .close-button { position: absolute; top: 10px; right: 15px; font-size: 35px; cursor: pointer; color: var(--accent); z-index: 1001; }
         .close-dark { color: #888; }
@@ -94,20 +99,28 @@
         .product-card { background: #222; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid rgba(176,106,42,0.2); cursor: pointer; transition: 0.3s; }
         .product-card i { font-size: 45px; color: var(--accent); margin-bottom: 15px; }
 
-        /* --- ESTRUTURA DO DETALHE (ORDEM CORRIGIDA) --- */
+        /* --- ESTRUTURA DO DETALHE --- */
         .product-detail-container {
             display: flex;
             flex-direction: column; 
             gap: 25px;
             align-items: center;
+            background: #ffffff; /* Garante o branco atrás de tudo */
         }
 
         /* Ordem Celular: Texto (1), Imagem (2), Botão (3) */
-        .detail-text-side { order: 1; width: 100%; text-align: center; }
-        .detail-image-side { order: 2; width: 100%; text-align: center; }
-        .back-btn-container { order: 3; width: 100%; text-align: center; }
+        .detail-text-side { order: 1; width: 100%; text-align: center; background: #ffffff; }
+        .detail-image-side { order: 2; width: 100%; text-align: center; background: #ffffff; }
+        .back-btn-container { order: 3; width: 100%; text-align: center; background: #ffffff; }
 
-        .detail-image-side img { width: 100%; max-width: 280px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        /* Imagem sem bordas ou sombras que contrastem com o fundo branco */
+        .detail-image-side img { 
+            width: 100%; 
+            max-width: 320px; 
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
         .product-info h2 { font-family: 'Bebas Neue'; font-size: clamp(35px, 5vw, 50px); color: var(--accent); margin-bottom: 15px; }
         .product-info p { font-size: 17px; line-height: 1.6; color: #444; margin-bottom: 15px; max-width: 500px; margin-left: auto; margin-right: auto; }
@@ -117,19 +130,18 @@
             border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; width: 100%;
         }
 
-        /* AJUSTES PARA COMPUTADOR (DESKTOP) */
+        /* DESKTOP */
         @media (min-width: 768px) {
             .product-detail-container {
                 flex-direction: row; 
                 text-align: left;
                 align-items: center;
                 justify-content: space-between;
-                flex-wrap: wrap; /* Permite que o botão quebre para baixo se necessário */
+                flex-wrap: wrap;
             }
             .detail-text-side { width: 55%; text-align: left; order: 1; }
             .detail-image-side { width: 40%; order: 2; }
             .back-btn-container { width: 100%; text-align: left; order: 3; margin-top: 10px; }
-            
             .product-info p { margin-left: 0; }
             .back-btn { width: auto; }
             .cta-button { width: auto; min-width: 220px; }
