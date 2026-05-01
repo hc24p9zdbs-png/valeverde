@@ -12,6 +12,7 @@
             --accent: #B06A2A;
             --text-light: #E8E0D2;
             --text-dark: #222;
+            --success: #27ae60;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -22,11 +23,14 @@
             color: var(--text-light);
             overflow-x: hidden;
             line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* --- BACKGROUND & HEADER --- */
         .slide-container {
-            position: relative; width: 100vw; height: 100vh;
+            position: relative; width: 100vw; height: 90vh;
             display: flex; justify-content: center; align-items: center;
             background: radial-gradient(circle at center, #1a1a1a 0%, #0b0b0b 100%);
         }
@@ -59,6 +63,31 @@
         .cta-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
         .cta-button:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 6px 20px rgba(176, 106, 42, 0.3); }
 
+        /* --- FOOTER (CONTATO E CNPJ) --- */
+        footer {
+            background: #050505;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(176, 106, 42, 0.2);
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto 20px;
+        }
+
+        .footer-item { display: flex; align-items: center; gap: 8px; color: #aaa; text-decoration: none; transition: 0.3s; }
+        .footer-item:hover { color: var(--accent); }
+        .footer-item i { color: var(--accent); font-size: 16px; }
+
+        .cnpj-text { opacity: 0.6; letter-spacing: 1px; margin-top: 10px; }
+
         /* --- MODAIS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -73,10 +102,31 @@
             width: 100%; max-width: 750px;
             padding: 40px 25px; border-radius: 20px;
             position: relative; max-height: 90vh; overflow-y: auto;
-            transform: translateY(20px); opacity: 0; transition: 0.4s ease;
         }
-        .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+
         .close-button { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #bbb; z-index: 10; }
+
+        /* --- VERIFICAÇÕES / SELOS --- */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .badge-item i { font-size: 18px; color: var(--success); margin-bottom: 4px; }
 
         /* --- GRID PRODUTOS --- */
         .portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 25px; }
@@ -84,42 +134,19 @@
             background: #f9f9f9; padding: 20px; border-radius: 12px; 
             text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s;
         }
-        .product-card i { font-size: 35px; color: var(--accent); margin-bottom: 10px; }
-        .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: #fff; }
 
-        /* --- DETALHE PRODUTO (LAYOUT CENTRALIZADO) --- */
-        .product-detail-container { 
-            display: flex; flex-direction: column; align-items: center; 
-            text-align: center; min-height: 300px; position: relative; 
-        }
-        .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); line-height: 1; margin-bottom: 10px; }
-        .product-info p { font-size: 15px; color: #555; max-width: 450px; margin-bottom: 20px; }
+        /* --- DETALHE PRODUTO --- */
+        .product-detail-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); margin-bottom: 10px; }
+        .detail-image-side img { max-height: 200px; margin: 20px 0; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.1)); }
         
-        .detail-image-side { flex-grow: 1; display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 20px; }
-        .detail-image-side img { max-height: 200px; width: auto; max-width: 90%; object-fit: contain; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.1)); }
+        .back-btn { background: var(--dark); color: white; border: none; padding: 12px 35px; border-radius: 8px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
 
-        .back-btn { 
-            background: var(--dark); color: white; border: none; padding: 12px 35px; 
-            border-radius: 8px; cursor: pointer; font-weight: 700; 
-            text-transform: uppercase; transition: 0.3s; font-size: 13px;
-        }
-        .back-btn:hover { background: var(--accent); }
-
-        /* --- ESTILO SOBRE NÓS --- */
-        .about-text { text-align: left; font-size: 14px; color: #444; line-height: 1.6; }
-        .about-text p { margin-bottom: 15px; }
-        .about-highlight { 
-            background: #fdfaf6; border-left: 4px solid var(--accent); 
-            padding: 20px; text-align: center; margin-top: 25px; border-radius: 0 10px 10px 0;
-        }
-
-        /* AJUSTES RESPONSIVOS */
+        /* RESPONSIVO */
         @media (min-width: 768px) {
-            .portfolio-grid { grid-template-columns: repeat(3, 1fr); max-width: 650px; margin-left: auto; margin-right: auto; }
-            .about-text { font-size: 15px; padding: 0 20px; }
-            .detail-image-side img { max-height: 250px; }
-            .back-btn { width: auto; align-self: flex-end; } /* Botão no canto em telas maiores */
-            .product-detail-container { align-items: center; }
+            .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-info { gap: 40px; }
         }
     </style>
 </head>
@@ -139,6 +166,26 @@
         </div>
     </div>
 </div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-info">
+        <a href="tel:+5531999708180" class="footer-item">
+            <i class="fas fa-phone-alt"></i>
+            (31) 9 9970-8180
+        </a>
+        <a href="mailto:contato@valeverde.com.br" class="footer-item">
+            <i class="fas fa-envelope"></i>
+            contato@valeverde.com.br
+        </a>
+        <div class="footer-item">
+            <i class="fas fa-map-marker-alt"></i>
+            Minas Gerais, Brasil
+        </div>
+    </div>
+    <div class="cnpj-text">CNPJ: 00.000.000/0001-00</div>
+    <p style="margin-top: 15px; opacity: 0.4;">&copy; 2026 Vale Verde. Todos os direitos reservados.</p>
+</footer>
 
 <!-- MODAL PORTFÓLIO -->
 <div id="portfolioModal" class="modal-overlay">
@@ -167,18 +214,31 @@
     <div class="modal-content">
         <span class="close-button" onclick="toggleModal('infoModal', false)">&times;</span>
         <h2 style="font-family: 'Bebas Neue'; font-size: 32px; color: var(--accent); margin-bottom: 20px; text-align: center;">Sobre Nós</h2>
-        <div class="about-text">
-            <p><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização, levando a experiência das grandes churrascarias diretamente para sua casa, unindo tradição e sabor.</p>
+        <div style="color: #444; font-size: 14px; line-height: 1.6;">
+            <p style="margin-bottom: 15px;"><strong>Vale Verde</strong> é uma marca voltada ao desenvolvimento de produtos alimentícios com foco em qualidade e padronização, levando a experiência das grandes churrascarias diretamente para sua casa, unindo tradição e sabor.</p>
+            <p style="margin-bottom: 15px;">Dentro do portfólio, nasce <strong>Brasa & Sabor</strong>, uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p>
+            <p style="margin-bottom: 15px;">A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p>
+            <p style="margin-bottom: 15px;">Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p>
             
-            <p>Dentro do portfólio, nasce <strong>Brasa & Sabor</strong>, uma linha de temperos desenvolvida para atender o preparo moderno, com foco em carnes, grelhados e finalizações.</p>
-            
-            <p>A linha se inicia com o sal parrilla e evolui para rubs e blends secos, oferecendo soluções práticas que valorizam o sabor natural dos alimentos.</p>
-            
-            <p>Com proposta de qualidade acessível e aplicação profissional, Brasa & Sabor se posiciona como uma marca voltada para quem busca consistência, equilíbrio e resultado no preparo.</p>
-            
-            <div class="about-highlight">
-                <p style="margin-bottom: 5px; font-weight: 700; color: var(--accent); text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Nosso princípio central é:</p>
-                <p style="font-size: 22px; font-family: 'Bebas Neue'; color: var(--dark); letter-spacing: 1px;">Equilíbrio entre sal e brasa.</p>
+            <div style="background: #fdfaf6; border-left: 4px solid var(--accent); padding: 15px; text-align: center;">
+                <p style="font-weight: 700; color: var(--accent); text-transform: uppercase; font-size: 11px;">Nosso princípio central é:</p>
+                <p style="font-size: 20px; font-family: 'Bebas Neue'; color: var(--dark);">Equilíbrio entre sal e brasa.</p>
+            </div>
+        </div>
+
+        <!-- VERIFICAÇÕES -->
+        <div class="trust-badges">
+            <div class="badge-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Qualidade Premiada</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Origem Controlada</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-leaf"></i>
+                <span>100% Natural</span>
             </div>
         </div>
     </div>
@@ -253,13 +313,8 @@
         setTimeout(() => toggleModal('portfolioModal', true), 350); 
     }
 
-    window.onclick = (e) => { 
-        if (e.target.classList.contains('modal-overlay')) {
-            toggleModal(e.target.id, false);
-        }
-    }
+    window.onclick = (e) => { if (e.target.classList.contains('modal-overlay')) toggleModal(e.target.id, false); }
 </script>
-</body>
-</html>
+
 </body>
 </html>
