@@ -97,26 +97,55 @@
         }
         .modal-content {
             background: #ffffff !important; color: var(--text-dark) !important;
-            width: 100%; max-width: 750px; padding: 40px 25px; border-radius: 20px;
+            width: 100%; max-width: 750px; padding: 35px 25px; border-radius: 20px;
             position: relative; max-height: 90vh; overflow-y: auto; transform: translateY(20px); opacity: 0; transition: 0.4s ease;
         }
         .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
         .close-button { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #bbb; z-index: 10; }
 
+        /* --- SISTEMA DE ABAS --- */
+        .tabs-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #eee; width: 100%; }
+        .tab-btn {
+            background: none; border: none; padding: 10px 15px; cursor: pointer;
+            font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px;
+            color: #777; border-bottom: 3px solid transparent; transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .tab-pane { display: none; text-align: left; animation: fadeIn 0.3s ease; }
+        .tab-pane.active { display: block; }
+
+        /* --- TABELA NUTRICIONAL --- */
+        .nutri-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+        .nutri-table th, .nutri-table td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+        .nutri-table th { background: #fdfaf6; color: var(--accent); font-weight: 700; }
+
+        /* --- DETALHES DE USO E DICAS --- */
+        .info-section { margin-bottom: 20px; }
+        .info-section h4 { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--dark); border-left: 3px solid var(--accent); padding-left: 8px; margin-bottom: 10px; text-transform: uppercase; }
+        .info-section p, .info-section ul { font-size: 13px; color: #555; line-height: 1.6; }
+        .info-section ul { padding-left: 18px; margin-bottom: 10px; }
+        .tip-box { background: #fdfaf6; border-left: 4px solid var(--accent); padding: 12px 15px; border-radius: 4px; margin: 15px 0; }
+        .tip-box strong { color: var(--accent); font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .obs-box { font-size: 11px; color: #888; border-top: 1px solid #eee; padding-top: 10px; margin-top: 15px; }
+
         /* --- GRID E DETALHES --- */
         .portfolio-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 25px; }
-        .product-card { background: #f9f9f9; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
+        .product-card { background: #f9f9f9; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; color: var(--text-dark); }
         .product-card i { font-size: 35px; color: var(--accent); margin-bottom: 10px; }
+        .product-card h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; }
         .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: #fff; }
-        .product-detail-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); }
-        .detail-image-side img { max-height: 220px; margin: 20px 0; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
-        .back-btn { background: var(--dark); color: white; border: none; padding: 12px 35px; border-radius: 8px; cursor: pointer; font-weight: 700; text-transform: uppercase; margin-top: 15px; }
+        .product-detail-container { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+        .product-info h2 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--accent); margin-bottom: 5px; }
+        .detail-image-side img { max-height: 180px; margin: 15px 0; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+        .back-btn { background: var(--dark); color: white; border: none; padding: 12px 35px; border-radius: 8px; cursor: pointer; font-weight: 700; text-transform: uppercase; margin-top: 15px; width: 100%; }
 
         /* --- SELOS --- */
         .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; }
         .badge-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 700; color: #888; }
         .badge-item i { font-size: 18px; color: var(--success); margin-bottom: 4px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (min-width: 768px) {
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); max-width: 600px; margin: 25px auto 0; }
@@ -200,7 +229,7 @@
             </div>
             <div class="product-card" onclick="openDetail('detailBlend')">
                 <i class="fas fa-utensils"></i>
-                <h3>Blends Secos</h3>
+                <h3>Batata Crocante</h3>
             </div>
             <div class="product-card" onclick="openDetail('detailDefumado')">
                 <i class="fas fa-smog"></i>
@@ -212,9 +241,56 @@
 
 <div id="detailSal" class="modal-overlay">
     <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailSal', false)">&times;</span>
         <div class="product-detail-container">
-            <div class="product-info"><h2>Sal Parrilla</h2><p>Granulometria ideal para uma salga uniforme sem desidratar a carne.</p></div>
-            <div class="detail-image-side"><img src="imgsalparrilla.jpg" alt="Sal"></div>
+            <div class="product-info">
+                <h2>Sal Parrilla</h2>
+                <p style="color: #666; font-size: 14px;">Granulometria ideal para uma salga uniforme sem desidratar a carne.</p>
+            </div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('detailSal', 'visaoGeralSal')">Visão Geral</button>
+                <button class="tab-btn" onclick="switchTab('detailSal', 'maisInfoSal')">Mais Informações</button>
+            </div>
+
+            <div id="visaoGeralSal" class="tab-pane active">
+                <div class="detail-image-side"><img src="imgsalparrilla.jpg" alt="Sal"></div>
+                <div class="info-section">
+                    <h4>Como Usar</h4>
+                    <ul>
+                        <li>Ideal para costela, picanha, chorizo, frango, legumes e carnes na brasa.</li>
+                        <li>Aplique generosamente nas carnes antes de levar à parrilla.</li>
+                        <li>Use cerca de 1 colher de sopa para cada 500g–700g de carne.</li>
+                        <li>Para melhor resultado: tempere a carne com o sal parrilla e deixe descansar por 30 a 60 minutos antes de assar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="maisInfoSal" class="tab-pane">
+                <div class="info-section">
+                    <h4>Tabela Nutricional (Resumo por 100g)</h4>
+                    <table class="nutri-table">
+                        <tr><th>Componente</th><th>Quantidade</th></tr>
+                        <tr><td>Valor Energético</td><td>160 kcal</td></tr>
+                        <tr><td>Carboidratos</td><td>28 g</td></tr>
+                        <tr><td>Proteínas</td><td>6 g</td></tr>
+                        <tr><td>Gorduras</td><td>4 g</td></tr>
+                        <tr><td>Sódio</td><td>37.000 mg (37g)</td></tr>
+                    </table>
+                </div>
+
+                <div class="tip-box">
+                    <strong>Dica de uso profissional</strong>
+                    <p style="color: #555; font-size:13px;">Nos últimos 5-10 minutos na brasa, passe mais uma leve camada do sal para realçar o sabor final.</p>
+                </div>
+
+                <div class="obs-box">
+                    <p>*% Valores Diários com base em uma dieta de 2.000 kcal.</p>
+                    <p>Alto teor de sódio.</p>
+                    <p><strong>Contém glúten?</strong> Não | <strong>Contém lactose?</strong> Não</p>
+                </div>
+            </div>
+
             <button class="back-btn" onclick="backToPortfolio('detailSal')">VOLTAR</button>
         </div>
     </div>
@@ -222,9 +298,58 @@
 
 <div id="detailRub" class="modal-overlay">
     <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailRub', false)">&times;</span>
         <div class="product-detail-container">
-            <div class="product-info"><h2>Dry Rubs</h2><p>Tempero seco para criar crosta caramelizada em cortes especiais.</p></div>
-            <div class="detail-image-side"><img src="imgsalbatata.jpg" alt="Rub"></div>
+            <div class="product-info">
+                <h2>Dry Rubs</h2>
+                <p style="color: #666; font-size: 14px;">Tempero seco para criar crosta caramelizada em cortes especiais.</p>
+            </div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('detailRub', 'visaoGeralRub')">Visão Geral</button>
+                <button class="tab-btn" onclick="switchTab('detailRub', 'maisInfoRub')">Mais Informações</button>
+            </div>
+
+            <div id="visaoGeralRub" class="tab-pane active">
+                <div class="detail-image-side"><img src="imgsalbatata.jpg" alt="Rub"></div>
+                <div class="info-section">
+                    <h4>Como Usar</h4>
+                    <ul>
+                        <li>Remova o excesso de umidade da carne com papel-toalha.</li>
+                        <li>Aplique uma camada generosa do rub em todos os lados da costela.</li>
+                        <li>Pressione bem para aderir.</li>
+                        <li>Deixe descansar no mínimo 2 horas (ideal de 6 a 12 horas na geladeira, ou até 24h).</li>
+                        <li>Asse ou fume conforme sua preferência.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="maisInfoRub" class="tab-pane">
+                <div class="info-section">
+                    <h4>Tabela Nutricional (Resumo por 100g)</h4>
+                    <table class="nutri-table">
+                        <tr><th>Componente</th><th>Quantidade</th></tr>
+                        <tr><td>Valor Energético</td><td>240 kcal</td></tr>
+                        <tr><td>Carboidratos</td><td>46 g</td></tr>
+                        <tr><td>Proteínas</td><td>8 g</td></tr>
+                        <tr><td>Gorduras</td><td>6 g</td></tr>
+                        <tr><td>Sódio</td><td>7.600 mg</td></tr>
+                    </table>
+                    <p style="font-size: 13px; color: #555; margin-top: 5px;"><strong>Quantidade ideal:</strong> 2 a 3 colheres de sopa por kg de costela.</p>
+                </div>
+
+                <div class="tip-box">
+                    <strong>Dica para crosta caramelizada</strong>
+                    <p style="color: #555; font-size:13px;">Nos últimos 30-45 minutos de cocção, aumente a temperatura ou pincele com um pouco de mel + molho barbecue diluído para potencializar a caramelização.</p>
+                </div>
+
+                <div class="obs-box">
+                    <p>*% Valores Diários com base em uma dieta de 2.000 kcal.</p>
+                    <p>O alto teor de sódio é esperado, pois é um dry rub concentrado.</p>
+                    <p><strong>Contém glúten?</strong> Não | <strong>Contém lactose?</strong> Não</p>
+                </div>
+            </div>
+
             <button class="back-btn" onclick="backToPortfolio('detailRub')">VOLTAR</button>
         </div>
     </div>
@@ -232,9 +357,57 @@
 
 <div id="detailBlend" class="modal-overlay">
     <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailBlend', false)">&times;</span>
         <div class="product-detail-container">
-            <div class="product-info"><h2>Blends Secos</h2><p>Soluções práticas que valorizam o sabor natural dos alimentos.</p></div>
-            <div class="detail-image-side"><img src="imghub.jpg" alt="Blend"></div>
+            <div class="product-info">
+                <h2>Batata Crocante</h2>
+                <p style="color: #666; font-size: 14px;">Soluções práticas que valorizam o sabor natural e trazem máxima crocância.</p>
+            </div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('detailBlend', 'visaoGeralBlend')">Visão Geral</button>
+                <button class="tab-btn" onclick="switchTab('detailBlend', 'maisInfoBlend')">Mais Informações</button>
+            </div>
+
+            <div id="visaoGeralBlend" class="tab-pane active">
+                <div class="detail-image-side"><img src="imghub.jpg" alt="Blend"></div>
+                <div class="info-section">
+                    <h4>Como Usar (Airfryer ou Forno)</h4>
+                    <ul>
+                        <li>Corte as batatas em gomos ou palitos (com casca fica mais bonito).</li>
+                        <li>Lave bem para tirar o amido e seque muito bem com papel toalha.</li>
+                        <li>Regue com um fio de óleo (ou azeite) e misture.</li>
+                        <li>Polvilhe generosamente o tempero (cerca de 25-30g por kg de batata).</li>
+                        <li>Airfryer: 200°C por 18-25 minutos (agite na metade).</li>
+                        <li>Forno: 220°C por 35-45 minutos (virando no meio).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="maisInfoBlend" class="tab-pane">
+                <div class="info-section">
+                    <h4>Tabela Nutricional (Resumo por 100g)</h4>
+                    <table class="nutri-table">
+                        <tr><th>Componente</th><th>Quantidade</th></tr>
+                        <tr><td>Valor Energético</td><td>280 kcal</td></tr>
+                        <tr><td>Carboidratos</td><td>52 g</td></tr>
+                        <tr><td>Proteínas</td><td>12 g</td></tr>
+                        <tr><td>Gorduras</td><td>6 g</td></tr>
+                        <tr><td>Sódio</td><td>9.200 mg (9,2g)</td></tr>
+                    </table>
+                </div>
+
+                <div class="tip-box">
+                    <strong>Dica de ouro</strong>
+                    <p style="color: #555; font-size:13px;">Para ficar extra crocante, adicione 1 colher de sopa de polvilho azedo ou amido de milho junto com o tempero nas batatas.</p>
+                </div>
+
+                <div class="obs-box">
+                    <p>*% Valores Diários com base em uma dieta de 2.000 kcal.</p>
+                    <p><strong>Contém glúten?</strong> Não | <strong>Contém lactose?</strong> Sim (devido ao queijo parmesão em pó)</p>
+                </div>
+            </div>
+
             <button class="back-btn" onclick="backToPortfolio('detailBlend')">VOLTAR</button>
         </div>
     </div>
@@ -242,12 +415,56 @@
 
 <div id="detailDefumado" class="modal-overlay">
     <div class="modal-content">
+        <span class="close-button" onclick="toggleModal('detailDefumado', false)">&times;</span>
         <div class="product-detail-container">
             <div class="product-info">
-                <h2>Linha Defumados</h2>
-                <p>Produtos com notas marcantes de fumaça natural para trazer a experiência autêntica do American BBQ.</p>
+                <h2>Defumados</h2>
+                <p style="color: #666; font-size: 14px;">Notas marcantes de fumaça natural para a experiência autêntica do American BBQ.</p>
             </div>
-            <div class="detail-image-side"><img src="imgdefumado.png" alt="Defumados"></div>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('detailDefumado', 'visaoGeralDef')">Visão Geral</button>
+                <button class="tab-btn" onclick="switchTab('detailDefumado', 'maisInfoDef')">Mais Informações</button>
+            </div>
+
+            <div id="visaoGeralDef" class="tab-pane active">
+                <div class="detail-image-side"><img src="imgdefumado.png" alt="Defumados"></div>
+                <div class="info-section">
+                    <h4>Como Usar</h4>
+                    <ul>
+                        <li>Tempere carnes generosamente (1 colher de sopa para cada 500-600g de carne).</li>
+                        <li>Ideal para: costela, picanha, brisket, frango, linguiça e legumes.</li>
+                        <li>Deixe agir de 40 minutos a 4 horas (para mais sabor defumado).</li>
+                        <li>Excelente tanto na parrilla tradicional quanto no smoker ou forno.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="maisInfoDef" class="tab-pane">
+                <div class="info-section">
+                    <h4>Tabela Nutricional (Resumo por 100g)</h4>
+                    <table class="nutri-table">
+                        <tr><th>Componente</th><th>Quantidade</th></tr>
+                        <tr><td>Valor Energético</td><td>180 kcal</td></tr>
+                        <tr><td>Carboidratos</td><td>32 g</td></tr>
+                        <tr><td>Proteínas</td><td>8 g</td></tr>
+                        <tr><td>Gorduras</td><td>4 g</td></tr>
+                        <tr><td>Sódio</td><td>35.600 mg (35,6g)</td></tr>
+                    </table>
+                </div>
+
+                <div class="tip-box">
+                    <strong>Dica extra para crosta</strong>
+                    <p style="color: #555; font-size:13px;">Nos últimos 10 minutos de cocção, aplique mais uma leve camada do sal defumado para intensificar o sabor e a cor.</p>
+                </div>
+
+                <div class="obs-box">
+                    <p>*% Valores Diários com base em uma dieta de 2.000 kcal.</p>
+                    <p>Alto teor de sódio (característico de sal temperado).</p>
+                    <p><strong>Contém glúten?</strong> Não | <strong>Contém lactose?</strong> Não</p>
+                </div>
+            </div>
+
             <button class="back-btn" onclick="backToPortfolio('detailDefumado')">VOLTAR</button>
         </div>
     </div>
@@ -256,12 +473,52 @@
 <script>
     function toggleModal(id, show) {
         const modal = document.getElementById(id);
-        if (show) { modal.style.display = "flex"; setTimeout(() => modal.classList.add('active'), 10); document.body.style.overflow = 'hidden'; }
-        else { modal.classList.remove('active'); setTimeout(() => { modal.style.display = "none"; if(!document.querySelector('.modal-overlay.active')) document.body.style.overflow = ''; }, 300); }
+        if (show) { 
+            modal.style.display = "flex"; 
+            setTimeout(() => modal.classList.add('active'), 10); 
+            document.body.style.overflow = 'hidden'; 
+        } else { 
+            modal.classList.remove('active'); 
+            setTimeout(() => { 
+                modal.style.display = "none"; 
+                if(!document.querySelector('.modal-overlay.active')) document.body.style.overflow = ''; 
+            }, 300); 
+        }
     }
-    function openDetail(id) { toggleModal('portfolioModal', false); setTimeout(() => toggleModal(id, true), 350); }
-    function backToPortfolio(id) { toggleModal(id, false); setTimeout(() => toggleModal('portfolioModal', true), 350); }
-    window.onclick = (e) => { if (e.target.classList.contains('modal-overlay')) toggleModal(e.target.id, false); }
+
+    function openDetail(id) { 
+        toggleModal('portfolioModal', false); 
+        setTimeout(() => toggleModal(id, true), 350); 
+    }
+
+    function backToPortfolio(id) { 
+        toggleModal(id, false); 
+        setTimeout(() => toggleModal('portfolioModal', true), 350); 
+    }
+
+    function switchTab(modalId, tabPaneId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        // Desativa todas as abas e botões do modal atual
+        const buttons = modal.querySelectorAll('.tab-btn');
+        const panes = modal.querySelectorAll('.tab-pane');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+        panes.forEach(pane => pane.classList.remove('active'));
+
+        // Ativa o botão selecionado
+        const targetBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabPaneId));
+        if (targetBtn) targetBtn.classList.add('active');
+
+        // Ativa o painel de conteúdo correto
+        const targetPane = document.getElementById(tabPaneId);
+        if (targetPane) targetPane.classList.add('active');
+    }
+
+    window.onclick = (e) => { 
+        if (e.target.classList.contains('modal-overlay')) toggleModal(e.target.id, false); 
+    }
 </script>
 
 </body>
